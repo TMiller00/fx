@@ -4,11 +4,11 @@ const argv = require('yargs').argv;
 const axios = require('axios');
 const url = require('url');
 
-const LATEST_URL = `https://api.exchangerate.host/latest`;
+const LATEST_URL: string = `https://api.exchangerate.host/latest`;
 
 const BASE_URL = new URL(LATEST_URL);
 
-const getData = async (url) => {
+const getData = async (url: string) => {
   try {
     const response = await axios.get(url);
     const data = response.data;
