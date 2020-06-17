@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "commander": "^5.1.0",
     "tslint": "^6.1.2",
-    "typescript": "^3.9.5",
-    "yargs": "^15.3.1"
+    "typescript": "^3.9.5"
   },
   "devDependencies": {
     "@types/node": "^14.0.13"
