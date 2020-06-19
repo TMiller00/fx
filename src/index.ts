@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const argv = require('yargs').argv;
+const { program } = require('commander');
 const axios = require('axios');
 const url = require('url');
 
@@ -18,24 +18,33 @@ const getData = async (url: string) => {
   }
 };
 
-if (argv.base) {
-  BASE_URL.searchParams.append('base', argv.base);
+program
+  .option('-b, --base <type>', 'change the base currency')
+  .option('-s, --symbols <type>', 'list preferred output currencies')
+  .option('-a, --amount <type>', 'the amount to be converted')
+  .option('-p, --places <type>', 'round numbers to decimal place')
+  .option('--source <type>', 'switch source data between forex or bank view');
+
+program.parse(process.argv);
+
+if (program.base) {
+  BASE_URL.searchParams.append('base', program.base);
 }
 
-if (argv.symbols) {
-  BASE_URL.searchParams.append('symbols', argv.symbols);
+if (program.symbols) {
+  BASE_URL.searchParams.append('symbols', program.symbols);
 }
 
-if (argv.amount) {
-  BASE_URL.searchParams.append('amount', argv.amount);
+if (program.amount) {
+  BASE_URL.searchParams.append('amount', program.amount);
 }
 
-if (argv.places) {
-  BASE_URL.searchParams.append('places', argv.places);
+if (program.places) {
+  BASE_URL.searchParams.append('places', program.places);
 }
 
-if (argv.source) {
-  BASE_URL.searchParams.append('source', argv.source);
+if (program.source) {
+  BASE_URL.searchParams.append('source', program.source);
 }
 
 getData(BASE_URL.href)
