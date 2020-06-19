@@ -39,7 +39,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var program = require('commander').program;
 var axios = require('axios');
 var url = require('url');
-var LATEST_URL = "https://api.exchangerate.host/latest";
+var _a = require('./command/latest'), LATEST_URL = _a.LATEST_URL, processCommands = _a.processCommands;
 var BASE_URL = new URL(LATEST_URL);
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var response, data, error_1;
@@ -68,19 +68,6 @@ program
     .option('-p, --places <type>', 'round numbers to decimal place')
     .option('--source <type>', 'switch source data between forex or bank view');
 program.parse(process.argv);
-if (program.base) {
-    BASE_URL.searchParams.append('base', program.base);
-}
-if (program.symbols) {
-    BASE_URL.searchParams.append('symbols', program.symbols);
-}
-if (program.amount) {
-    BASE_URL.searchParams.append('amount', program.amount);
-}
-if (program.places) {
-    BASE_URL.searchParams.append('places', program.places);
-}
-if (program.source) {
-    BASE_URL.searchParams.append('source', program.source);
-}
-getData(BASE_URL.href);
+var PARSED_BASE_URL = processCommands(BASE_URL, program);
+console.log(PARSED_BASE_URL.href);
+getData(PARSED_BASE_URL.href);
