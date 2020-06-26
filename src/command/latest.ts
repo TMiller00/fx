@@ -1,6 +1,11 @@
-export const LATEST_URL: string = `https://api.exchangerate.host/latest`;
+const url = require('url');
+import getData from './getData';
 
-export const processCommands = (BASE_URL: any, program: any) => {
+const LATEST_URL: string = `https://api.exchangerate.host/latest`;
+
+export const processCommands = (program: any) => {
+  const BASE_URL = new URL(LATEST_URL);
+
   if (program.base) {
     BASE_URL.searchParams.append('base', program.base);
   }
@@ -21,5 +26,5 @@ export const processCommands = (BASE_URL: any, program: any) => {
     BASE_URL.searchParams.append('source', program.source);
   }
 
-  return BASE_URL
+  return getData(BASE_URL.href)
 }

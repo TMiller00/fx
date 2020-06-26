@@ -1,8 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.processCommands = exports.LATEST_URL = void 0;
-exports.LATEST_URL = "https://api.exchangerate.host/latest";
-exports.processCommands = function (BASE_URL, program) {
+exports.processCommands = void 0;
+var url = require('url');
+var getData_1 = __importDefault(require("./getData"));
+var LATEST_URL = "https://api.exchangerate.host/latest";
+exports.processCommands = function (program) {
+    var BASE_URL = new URL(LATEST_URL);
     if (program.base) {
         BASE_URL.searchParams.append('base', program.base);
     }
@@ -18,5 +24,5 @@ exports.processCommands = function (BASE_URL, program) {
     if (program.source) {
         BASE_URL.searchParams.append('source', program.source);
     }
-    return BASE_URL;
+    return getData_1.default(BASE_URL.href);
 };
