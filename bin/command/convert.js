@@ -36,26 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.convert = void 0;
+var url = require('url');
 var axios = require('axios');
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var response, data, error_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
+                _b.trys.push([0, 2, , 3]);
                 return [4, axios.get(url)];
             case 1:
-                response = _a.sent();
-                console.log(response);
-                data = response.data;
-                console.table(data.rates);
+                response = _b.sent();
+                data = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.result;
+                console.table(data);
                 return [3, 3];
             case 2:
-                error_1 = _a.sent();
+                error_1 = _b.sent();
                 console.log(error_1);
                 return [3, 3];
             case 3: return [2];
         }
     });
 }); };
-exports.default = getData;
+var CONVERT_URL = "https://api.exchangerate.host/convert";
+exports.convert = function (program) {
+    var BASE_URL = new URL(CONVERT_URL);
+    if (program.from) {
+        BASE_URL.searchParams.append('from', program.from);
+    }
+    if (program.to) {
+        BASE_URL.searchParams.append('to', program.to);
+    }
+    if (program.date) {
+        BASE_URL.searchParams.append('date', program.date);
+    }
+    if (program.amount) {
+        BASE_URL.searchParams.append('amount', program.amount);
+    }
+    if (program.places) {
+        BASE_URL.searchParams.append('places', program.places);
+    }
+    if (program.source) {
+        BASE_URL.searchParams.append('source', program.source);
+    }
+    return getData(BASE_URL.href);
+};
