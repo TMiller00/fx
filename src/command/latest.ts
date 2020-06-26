@@ -3,7 +3,15 @@ import getData from './getData';
 
 const LATEST_URL: string = `https://api.exchangerate.host/latest`;
 
-export const processCommands = (program: any) => {
+interface Program {
+  base?: string;
+  symbols?: string;
+  amount?: string;
+  places?: string;
+  source?: string;
+}
+
+export const latest = (program: Program) => {
   const BASE_URL = new URL(LATEST_URL);
 
   if (program.base) {
