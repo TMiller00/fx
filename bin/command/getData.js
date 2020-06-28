@@ -46,7 +46,6 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
                 return [4, axios.get(url)];
             case 1:
                 response = _a.sent();
-                console.log(response);
                 data = response.data;
                 console.table(data.rates);
                 return [3, 3];
