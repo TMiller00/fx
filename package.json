@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
     "tslint": "^6.1.2",
     "typescript": "^3.9.5"
