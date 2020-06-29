@@ -39,21 +39,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.convert = void 0;
 var url = require('url');
 var axios = require('axios');
+var Table = require('cli-table3');
+var table = new Table();
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var response, data, error_1;
-    var _a;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                _b.trys.push([0, 2, , 3]);
+                _a.trys.push([0, 2, , 3]);
                 return [4, axios.get(url)];
             case 1:
-                response = _b.sent();
-                data = (_a = response === null || response === void 0 ? void 0 : response.data) === null || _a === void 0 ? void 0 : _a.result;
-                console.table(data);
+                response = _a.sent();
+                data = response === null || response === void 0 ? void 0 : response.data;
+                table.push([data.query.from, data.query.to], [data.query.amount, data.result]);
+                console.log(table.toString());
                 return [3, 3];
             case 2:
-                error_1 = _b.sent();
+                error_1 = _a.sent();
                 console.log(error_1);
                 return [3, 3];
             case 3: return [2];

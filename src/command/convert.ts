@@ -1,11 +1,18 @@
 const url = require('url');
 const axios = require('axios');
+const Table = require('cli-table3');
+
+const table = new Table()
 
 const getData = async (url: string) => {
   try {
     const response = await axios.get(url);
-    const data = response?.data?.result;
-    console.table(data);
+    const data = response?.data;
+    table.push(
+      [data.query.from, data.query.to],
+      [data.query.amount, data.result]
+    )
+    console.log(table.toString());
   } catch (error) {
     console.log(error);
   }
