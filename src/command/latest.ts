@@ -1,38 +1,10 @@
-const url = require('url');
-import getData from './getData';
+import commonCommands, { Program } from '../utilities/commonCommands';
 
 const LATEST_URL: string = `https://api.exchangerate.host/latest`;
 
-interface Program {
-  base?: string;
-  symbols?: string;
-  amount?: string;
-  places?: string;
-  source?: string;
-}
+type latestProgram = Program<{}>;
 
-export const latest = (program: Program) => {
-  const BASE_URL = new URL(LATEST_URL);
+const latestFunctions = (program: latestProgram, queryUrl: URL): URL => queryUrl;
 
-  if (program.base) {
-    BASE_URL.searchParams.append('base', program.base);
-  }
+export const latest = commonCommands(LATEST_URL, latestFunctions)
 
-  if (program.symbols) {
-    BASE_URL.searchParams.append('symbols', program.symbols);
-  }
-
-  if (program.amount) {
-    BASE_URL.searchParams.append('amount', program.amount);
-  }
-
-  if (program.places) {
-    BASE_URL.searchParams.append('places', program.places);
-  }
-
-  if (program.source) {
-    BASE_URL.searchParams.append('source', program.source);
-  }
-
-  return getData(BASE_URL.href)
-}
