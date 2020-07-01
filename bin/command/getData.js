@@ -37,6 +37,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios = require('axios');
+var Table = require('cli-table3');
+var table = new Table({});
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
     var response, data, error_1;
     return __generator(this, function (_a) {
@@ -46,8 +48,16 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
                 return [4, axios.get(url)];
             case 1:
                 response = _a.sent();
-                data = response.data;
-                console.table(data.rates);
+                data = response === null || response === void 0 ? void 0 : response.data;
+                if (data.result && typeof data.result === 'number') {
+                    table.options.head = [data.query.from, data.query.to];
+                    table.push([data.query.amount, data.result]);
+                }
+                if (data.rates && typeof data.rates === 'object') {
+                    table.options.head = ['Symbol', 'Value'];
+                    Object.entries(data === null || data === void 0 ? void 0 : data.rates).forEach(function (c) { return table.push(c); });
+                }
+                console.log(table.toString());
                 return [3, 3];
             case 2:
                 error_1 = _a.sent();
