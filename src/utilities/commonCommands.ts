@@ -1,4 +1,3 @@
-const url = require('url');
 import getData from '../command/getData';
 
 enum CommonAttributes {
@@ -6,22 +5,17 @@ enum CommonAttributes {
   symbols = 'symbols',
   amount = 'amount',
   places = 'places',
-  source = 'source'
+  source = 'source',
 }
 
-type Program = {
-  [keyof in CommonAttributes]?: string;
-}
+export type Program<T> = Record<CommonAttributes, string> & T
 
-const commonCommands = (url: string) => {
-  return (program: any) => {
-    let BASE_URL = new URL(url);
+const commonCommands = <T>(endpoint: string, f: (program: Program<T>, queryUrl: URL) => URL) => {
+  let BASE_URL = new URL(endpoint);
+  const params: Array<keyof typeof CommonAttributes> = ['base', 'symbols', 'amount', 'places', 'source'];
 
-    const params: Array<keyof typeof CommonAttributes> = ['base', 'symbols', 'amount', 'places', 'source'];
-
-    if (program.date) {
-      BASE_URL.pathname = program.date;
-    }
+  return (program: Program<T>) => {
+    BASE_URL = f(program, BASE_URL)
 
     for (let p of params) {
       if (program[p]) {
@@ -29,7 +23,7 @@ const commonCommands = (url: string) => {
       }
     }
 
-    getData(BASE_URL.href)
+    return getData(BASE_URL.href)
   }
 }
 
