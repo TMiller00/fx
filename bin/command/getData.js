@@ -38,9 +38,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios = require('axios');
 var Table = require('cli-table3');
+var asciichart = require('asciichart');
 var table = new Table({});
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, data, error_1;
+    var response, data, chart_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -52,12 +53,18 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
                 if (data.result && typeof data.result === 'number') {
                     table.options.head = [data.query.from, data.query.to];
                     table.push([data.query.amount, data.result]);
+                    console.log(table.toString());
                 }
-                if (data.rates && typeof data.rates === 'object') {
+                if (!data.timeseries && data.rates && typeof data.rates === 'object') {
                     table.options.head = ['Symbol', 'Value'];
                     Object.entries(data === null || data === void 0 ? void 0 : data.rates).forEach(function (c) { return table.push(c); });
+                    console.log(table.toString());
                 }
-                console.log(table.toString());
+                if (data.timeseries) {
+                    chart_1 = [];
+                    Object.entries(data.rates).forEach(function (c) { return chart_1.push(c[1]['USD']); });
+                    console.log(asciichart.plot(chart_1, { height: 10 }));
+                }
                 return [3, 3];
             case 2:
                 error_1 = _a.sent();

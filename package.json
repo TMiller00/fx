@@ -14,6 +14,7 @@
     "fx": "./bin/index.js"
   },
   "dependencies": {
+    "asciichart": "^1.5.21",
     "axios": "^0.19.2",
     "cli-table3": "^0.6.0",
     "commander": "^5.1.0",
