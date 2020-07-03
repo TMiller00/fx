@@ -1,3 +1,4 @@
+const url = require('url')
 const axios = require('axios');
 const Table = require('cli-table3');
 const asciichart = require('asciichart');
@@ -24,10 +25,20 @@ const getData = async (url: string) => {
     }
 
     if (data.timeseries) {
+      let params = new URL(url);
+
       let chart: any = [];
-      Object.entries(data.rates).forEach((c: any) => chart.push(c[1]['USD']));
-      //console.log(chart)
-      console.log(asciichart.plot(chart, { height: 10 }))
+
+      const start_date = params.searchParams.get('start_date')
+      const end_date = params.searchParams.get('end_date')
+      const symbol: string = params.searchParams.get('symbols') || 'USD';
+
+      Object.entries(data.rates).forEach((c: any) => chart.push(c[1][symbol]));
+
+      table.options.head = [{ hAlign: 'center', content: `${symbol} from ${start_date} to ${end_date}` }];
+      table.push([asciichart.plot(chart, { height: 10, padding: '' })])
+
+      console.log(table.toString());
     }
   } catch (error) {
     console.log(error);

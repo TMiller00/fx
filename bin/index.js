@@ -42,6 +42,7 @@ program
     .requiredOption('--start <date>', 'the date to convert currency')
     .requiredOption('--end <date>', 'the date to convert currency')
     .option('-s, --symbols [symbols]', 'list preferred output currencies', 'USD')
+    .option('-b, --base <symbol>', 'change the base currency', 'USD')
     .action(function (option) {
     timeseries(option);
 });

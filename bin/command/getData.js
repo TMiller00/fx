@@ -36,12 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var url = require('url');
 var axios = require('axios');
 var Table = require('cli-table3');
 var asciichart = require('asciichart');
 var table = new Table({});
 var getData = function (url) { return __awaiter(void 0, void 0, void 0, function () {
-    var response, data, chart_1, error_1;
+    var response, data, params, chart_1, start_date, end_date, symbol_1, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -61,9 +62,15 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
                     console.log(table.toString());
                 }
                 if (data.timeseries) {
+                    params = new URL(url);
                     chart_1 = [];
-                    Object.entries(data.rates).forEach(function (c) { return chart_1.push(c[1]['USD']); });
-                    console.log(asciichart.plot(chart_1, { height: 10 }));
+                    start_date = params.searchParams.get('start_date');
+                    end_date = params.searchParams.get('end_date');
+                    symbol_1 = params.searchParams.get('symbols') || 'USD';
+                    Object.entries(data.rates).forEach(function (c) { return chart_1.push(c[1][symbol_1]); });
+                    table.options.head = [{ hAlign: 'center', content: symbol_1 + " from " + start_date + " to " + end_date }];
+                    table.push([asciichart.plot(chart_1, { height: 10, padding: '' })]);
+                    console.log(table.toString());
                 }
                 return [3, 3];
             case 2:
