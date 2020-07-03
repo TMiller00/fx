@@ -67,8 +67,8 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
                     start_date = params.searchParams.get('start_date');
                     end_date = params.searchParams.get('end_date');
                     symbol_1 = params.searchParams.get('symbols') || 'USD';
-                    Object.entries(data.rates).forEach(function (c) { return chart_1.push(c[1][symbol_1]); });
                     table.options.head = [{ hAlign: 'center', content: symbol_1 + " from " + start_date + " to " + end_date }];
+                    Object.entries(data.rates).forEach(function (c) { return chart_1.push(c[1][symbol_1]); });
                     table.push([asciichart.plot(chart_1, { height: 10, padding: '' })]);
                     console.log(table.toString());
                 }
