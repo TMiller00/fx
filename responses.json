@@ -1,0 +1,33 @@
+{
+  {
+    "timeseries": {
+      "success": true,
+      "timeseries": true,
+    "base": "GBP",
+    "start_date": "2020-01-01",
+    "end_date": "2020-04-01",
+    "rates": {
+      "2020-01-01": { "USD": 1.326046 },
+      "2020-01-02": { "USD": 1.325419 }
+    }
+  },
+  {
+    "success": true,
+      "base": "USD",
+      "date": "2020-07-03",
+      "rates": {
+        "AED": 3.69,
+        "AFN": 77.46
+      }
+  },
+  {
+    "success": true,
+    "query": { "from": "USD", "to": "EUR", "amount": 1 },
+    "info": { "rate": 0.89 },
+    "historical": false,
+    "date": "2020-07-03",
+    "result": 0.89
+  }
+}
+
+

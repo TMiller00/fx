@@ -1,18 +1,35 @@
 const url = require('url')
-const axios = require('axios');
+import axios, { AxiosResponse } from 'axios';
 const Table = require('cli-table3');
 const asciichart = require('asciichart');
 
 const table = new Table({});
 
-const getData = async (url: string) => {
+type Symbol = {
+  [key: string]: number;
+}
+
+type Timeseries = {
+  [key: string]: Symbol;
+}
+
+type Latest = {
+  [key: string]: Symbol | number;
+}
+
+interface Data {
+  rates?: Timeseries | Latest,
+  result?: number,
+  [key: string]: any
+}
+
+const getData = async (url: string): Promise<any> => {
   try {
-    const response = await axios.get(url);
-    const data = response?.data;
+    const response: AxiosResponse = await axios.get(url);
+    const data = response.data;
 
     if (data.result && typeof data.result === 'number') {
       table.options.head = [data.query.from, data.query.to]
-
 
       table.push([data.query.amount, data.result]);
       console.log(table.toString());

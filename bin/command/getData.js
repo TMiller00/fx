@@ -35,9 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var url = require('url');
-var axios = require('axios');
+var axios_1 = __importDefault(require("axios"));
 var Table = require('cli-table3');
 var asciichart = require('asciichart');
 var table = new Table({});
@@ -47,10 +50,10 @@ var getData = function (url) { return __awaiter(void 0, void 0, void 0, function
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4, axios.get(url)];
+                return [4, axios_1.default.get(url)];
             case 1:
                 response = _a.sent();
-                data = response === null || response === void 0 ? void 0 : response.data;
+                data = response.data;
                 if (data.result && typeof data.result === 'number') {
                     table.options.head = [data.query.from, data.query.to];
                     table.push([data.query.amount, data.result]);

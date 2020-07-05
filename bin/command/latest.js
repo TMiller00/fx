@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.latest = void 0;
 var commonCommands_1 = __importDefault(require("../utilities/commonCommands"));
 var LATEST_URL = "https://api.exchangerate.host/latest";
-var latestFunctions = function (program, queryUrl) { return queryUrl; };
-exports.latest = commonCommands_1.default(LATEST_URL, latestFunctions);
+var latestParameters = [];
+exports.latest = commonCommands_1.default(LATEST_URL, latestParameters);

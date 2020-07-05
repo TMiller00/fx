@@ -1,19 +1,6 @@
-import commonCommands, { Program } from '../utilities/commonCommands';
+import commonCommands from '../utilities/commonCommands';
 
+const timeseriesParameters: string[] = ['start_date', 'end_date'];
 const LATEST_URL = 'https://api.exchangerate.host/timeseries';
 
-type TimeseriesAttributes = {
-  start: string;
-  end: string;
-}
-
-type TimeseriesProgram = Program<TimeseriesAttributes>;
-
-const timeseriesFunctions = (program: TimeseriesProgram, queryUrl: URL): URL => {
-  queryUrl.searchParams.append('start_date', program.start)
-  queryUrl.searchParams.append('end_date', program.end)
-
-  return queryUrl
-}
-
-export const timeseries = commonCommands(LATEST_URL, timeseriesFunctions)
+export const timeseries = commonCommands(LATEST_URL, timeseriesParameters)
